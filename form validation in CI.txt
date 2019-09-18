@@ -1,0 +1,139 @@
+FORM VALIDATION:-
+...........................................................
+
+
+It is used to validate the form using the Form Validation Library.CI Provide a set of classes and method to implement validation.
+
+$this->form_validation->set_rules('elementname','message','validationtype');
+
+for example:-
+..................
+
+<input type="text" name="txtuser"   />
+
+
+$this->form_validation->set_rules('txtuser','username ','required');
+
+if($this->form_validation->run()==False)
+{
+   $this->load->view('viewname');
+
+}
+else
+{
+     action code
+}
+
+......................................................................................................
+
+
+STEP FOR VALIDATION:-
+......................
+1) Create Controller
+
+
+2) Create One Method for Load View and Action
+
+3) Set Form Validation library in autoload.PHP
+
+4) Create a View file
+
+5) Manage Validation Code and Load View
+
+6) Set Validation Error Message in View Page
+....................................................................................................
+
+
+Code of controller:-
+............................
+
+<?php
+class Reg extends CI_Controller
+{
+     function index()
+     {
+      $this->form_validation->set_rules('txtuser','username','required');
+      $this->form_validation->set_rules('txtpass','password','required');
+      $this->form_validation->set_rules('txtemail','email','required|valid_email');
+      $this->form_validation->set_rules('txtmobile','mobile','required|numeric|exact_length[10]');
+
+
+        if($this->form_validation->run()==False)
+        {
+      $this->load->view('regview');
+         }
+         else
+         {
+          echo "success";
+         }
+
+
+     } 
+
+
+
+}
+
+
+
+?>
+................................................................................................................................
+
+
+
+Code for View:-
+................................
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+ <style type="text/css">
+  p
+  {
+   color:red;
+  }
+
+
+
+ </style>
+</head>
+<body>
+<form action=""  method="post">
+<input type="text" name="txtuser" placeholder="Enter username" />
+<br>
+<?php echo form_error('txtuser');  ?>
+<br>
+<input type="text" name="txtpass" placeholder="Enter password" />
+<br>
+<br>
+<input type="text" name="txtemail" placeholder="Enter email" />
+<br>
+<br>
+<input type="text" name="txtmobile" placeholder="Enter mobileno" />
+<br>
+<br>
+<input type="submit" name="btnsubmit" value="Register" />
+
+</form>
+<center><?php echo validation_errors(); ?>
+</body>
+</html>
+.........................................................................................................................................
+
+
+Create Route.php:-
+...........................................
+
+$route['default_controller'] = 'reg';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;
+
+
+Edit Autoload.php:-
+..................................
+$autoload['libraries'] = array(''form_validation');
+ 
