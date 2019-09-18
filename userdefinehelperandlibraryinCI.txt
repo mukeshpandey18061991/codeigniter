@@ -1,0 +1,122 @@
+USER DEFINE HELPER AND LIBRARY IN CODEIGNITER
+...............................................................................................................
+
+
+Helper:-
+..............
+
+It is used to contain predefine functionality under a Codeigniter application. Codeigniter provide cookie, URL etc helper to provide features.
+
+Helper always will be declared as a procedural pattern.
+
+
+If we want to provide common features in an application then we can create a helper.
+....................................................................................................................................
+
+
+Step to create helper:-
+............................
+
+1 create helper file under application/helper directory
+
+2 _helper must be declared under filename as a suffix
+
+  filename_helper.php
+
+
+3 define function under helper file as a procedural pattern.
+
+  function functionname()
+  {
+
+  }
+
+4 load this helper file in autoload.php  or constructor 
+
+$this->load->helper('helperfile')
+
+
+5 Call helper under controller method.
+....................................................................................................................................................
+
+
+
+
+helper file code:-
+....................................................
+<?php
+
+function viewnotice()
+{
+
+ echo "<marquee><h1 style='color:red;'>CI batch will be finished earlier hence prepare project</marquee></h1>";
+}
+
+
+
+?>
+.................................................................................................................................................
+
+Controller:-
+.......................................................
+<?php
+ function __construct()
+  {
+          parent::__construct();
+         $this->load->helper('notice');
+
+  }
+     function index()
+     {
+
+      viewnotice();
+    }
+
+?>
+
+
+
+..............................................................................................................................................................
+
+Library:-
+.....................................................
+
+It is similar to helper but it will be declared in OOP'S pattern. if we want to define secure and complex functionality then we can use the library.
+
+CI provide multiple predefine library (session,form_validation,cart )  .
+
+Step to create Library:-
+
+1 Create File and Save into application/library folder.
+
+
+2 Declare Library Using Class Pattern.
+
+
+3 Call Library Under Controller Constructor or autoload.php
+
+   $this->load->library('libraryname');
+
+4 Call Library Method under Controller Method 
+
+  $this->LibraryClassname->Methodname()
+................................................................................................................................................
+
+
+Library Code:-
+...............................................
+<?php
+class Notice
+{
+
+function viewnotice()
+{
+
+ echo "<marquee><h1 style='color:red;'>CI batch will be finished earlier hence prepare project</marquee></h1>";
+}
+
+
+
+}
+
+?>
