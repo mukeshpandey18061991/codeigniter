@@ -1,0 +1,216 @@
+DATABASE CONNECTIVITY IN MYSQL
+Database connectivity from MySQL to CI?
+.........................................................................................
+
+steps1st:-
+
+create database and table from MySQL database using PHPMyAdmin
+
+step2nd:-
+
+open project folder and edit config/database.php
+
+and edit username, password, database
+
+username='root'
+password=' '
+database= 'dbname'
+
+step3rd:-
+
+create controller and load view and create an action method in the controller
+
+step4th
+
+create view form according to the table in the view file
+
+step5th
+
+create a model class and define a method for data insertion under the model folder
+
+class Modelname extends CI_Model
+{
+      function methodname()
+      {
+
+      }   
+
+}
+
+
+step6:-
+
+load database.php file under model class constructor
+
+function __construct()
+{
+   parent::__construct();
+   $this->load->database();
+}
+
+step7:-
+
+create a method on the model and write data insertion code
+
+step8:-
+
+call model method from the controller action method.
+
+first load model then call a model class method
+
+$this->load->model('modelname');
+$this->modelname->method(param,..)
+
+Show record
+9) create another method in controller and load view
+
+10) create another method in the model and write data selection code
+
+11) call a model method from the controller
+
+12) send model data into view from controller
+
+
+Complete Code for Data Operation
+
+Code of Database.php what will be changed:
+'hostname' => 'localhost',
+'username' => 'root',
+'password' => '',
+'database' => 'phpdb2',
+
+Code of Controller:-
+
+<?php
+class Student extends CI_Controller
+{
+
+ function index()
+ {
+
+  $this->load->view('stuview');
+ }
+
+    function stuadd()
+    {
+     $this->load->model('Stumodel');
+     $r = $this->input->post('txtrno');
+     $s = $this->input->post('txtname');
+     $b = $this->input->post('txtbranch');
+     $f = $this->input->post('txtfees');
+     $res=$this->Stumodel->stuinsert($r,$s,$b,$f);
+     if($res==1)
+     $data['res']= "data inserted successfully";
+     else
+     $data['res']= "problem in insertion";
+     $this->load->view('stuview',$data);
+    }
+    function stushow()
+    {
+     $this->load->model('Stumodel');
+     $data['res']=$this->Stumodel->showstudent();
+     $this->load->view('viewstudent',$data);
+    }
+
+}
+
+
+?>
+
+.............................................*....................................................................
+Code of View:-
+....................................................................................................
+stuview.php
+
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+</head>
+<body>
+<h1>Welcome in Student Information</h1>
+
+<form action="<?php echo site_url(); ?>/Student/stuadd" method="post">
+
+<input type="text" name="txtrno" placeholder="enter rno" />
+<br>
+<br>
+<input type="text" name="txtname" placeholder="enter name" />
+<br>
+<br>
+<input type="text" name="txtbranch" placeholder="enter branch" />
+<br>
+<br>
+<input type="text" name="txtfees" placeholder="enter fees" />
+<br>
+<br>
+<input type="submit" name="btnsubmit" value="Insert" />
+</form>
+<?php
+echo @$res;
+?>
+</body>
+</html>
+
+Code for Display View:-
+viewstudent.php
+
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+</head>
+<body>
+ <center>
+  <h1>Student Information</h1>
+<?php
+//print_r($res);
+echo "<table border='1'><tr><th>Rno</th><th>Sname</th><th>Branch</th><th>Fees</th></tr>";
+foreach($res as $k)
+{
+ echo "<tr>";
+ foreach ($k as $v) {
+  echo "<td>$v"."</td>";
+ }
+ echo "</tr>";
+}
+echo "</table>";
+?>
+</center>
+</body>
+</html>
+
+Code of Complete Model Class:-
+<?php
+class Stumodel extends CI_Model
+{
+    function __construct()
+    {
+     parent::__construct();
+     $this->load->database();
+    }
+
+    function stuinsert($r,$s,$b,$f)
+    {
+     $this->db->insert('student',array('rno'=>$r,'name'=>$s,'branch'=>$b,'fees'=>$f));
+     return $this->db->affected_rows();
+    }
+    function showstudent()
+    {
+     $res = $this->db->get('student');
+     return $res->result_array();
+    }
+
+}
+
+
+
+
+
+?>
+
+
+
+
+
+
