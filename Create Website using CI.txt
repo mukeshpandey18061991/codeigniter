@@ -1,0 +1,176 @@
+CREATE WEBSITE USING CODEIGNITER BY SHIVA SIR
+
+1   Create a Controller and define five different Method
+
+<?php
+class Guest extends CI_Controller
+{
+    function index()
+    {
+       $this->load->view('header');
+       $this->load->view('home');
+       $this->load->view('footer');
+    }
+    function about()
+    {
+       $this->load->view('header');
+       $this->load->view('about');
+       $this->load->view('footer');
+    }
+    function service()
+    {
+       $this->load->view('header');
+       $this->load->view('service');
+       $this->load->view('footer');
+    }
+    function gallery()
+    {
+        $this->load->view('header');
+       $this->load->view('gallery');
+       $this->load->view('footer');
+    }
+    function contact()
+    {
+       $this->load->view('header');
+       $this->load->view('contact');
+       $this->load->view('footer');
+    }
+
+
+
+
+}
+
+
+
+
+
+?>
+
+2 Create view file Under views folder using header.php,footer.php,home.php,about.php,contact.php,service.php,gallery.php
+
+header.php
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+ <link href="<?php echo base_url(); ?>/css/style.css"   type="text/css" rel="stylesheet"  />
+</head>
+<body>
+<header>
+
+<nav>
+<ul>
+<li><a href="<?php echo site_url(); ?>/guest/index">home</a></li>
+<li><a href="<?php echo site_url(); ?>/guest/about">about</a></li>
+<li><a href="<?php echo site_url(); ?>/guest/service">service</a></li>
+<li><a href="<?php echo site_url(); ?>/guest/gallery">gallery</a></li>
+<li><a href="<?php echo site_url(); ?>/guest/contact">contact</a></li>
+</ul>
+
+</nav>
+
+</header>
+
+
+........................................................................................................
+footer.php
+
+<footer>
+<center>&copy;2019 by SCS</center>
+</footer>
+</body>
+</html>
+.......................................................................................................................
+
+home.php
+.....................................
+
+<section>
+ 
+ <img src="<?php echo base_url(); ?>/img/banner.jpg" style="width:100%;" height="450" />
+ <hr>
+ <p>
+  We are providing a post for IT Programming languages for JAVA .NET ,PYTHON,PHP,ML,DATA SCIENCE,MACHINE Learning and Many more.Best Java Training in indore,Python Training in Indore,Online Classes in Indore,Machine Learning Programming in Indore,Data Science Programming in Indore. for more info http://shivaconceptsolution.com/contact-us/index.html
+ </p>
+</section>
+
+...................................................
+
+about.php,contact.php,services.php,gallery.php
+
+<section>
+
+ </section>
+
+
+3 define the controller method and call header, page, footer file
+
+function index()
+{
+    $this->load->view('header');
+    $this->load->view('home');
+    $this->load->view('footer');
+
+}
+
+define all method similar to this only change page name, header and footer will be same
+
+
+4 create style.css file and define the properties of the web page.\
+style.css file will be created in the project folder means outside of the application folder
+
+create a separate folder and define the style.css
+*
+{
+ margin:0px;
+}
+
+header
+{
+ height: 100px;
+ background-color: orange;
+}
+
+nav
+{
+ 
+ margin-left: 5px;
+}
+nav ul li
+{
+ display: inline-block;
+ margin-left: 10px;
+
+}
+nav ul li a
+{
+ color:white;
+ text-transform: uppercase;
+ text-decoration: none;
+ font-size: 25px;
+ font-weight: bolder;
+}
+section
+{
+   height: 540px;
+   background-color: gray;
+
+}
+footer
+{
+ height: 50px;
+ background-color: orange;
+}
+
+5 link CSS file under header.php file <head></head>
+
+<link href="<?php echo base_url(); ?>/css/style.css"   type="text/css" rel="stylesheet"  />
+
+6 Change routes.php $routes['default_controller']= 'guest'
+
+
+7 Create Menu to navigate from one web page to another
+ 
+
+8 Design menu using style.css
