@@ -1,0 +1,60 @@
+HOOKS IN CODEIGNITER
+Hooked is used to provide an implicit event method which will be called during the application flow cycle.
+
+for example, if we want to call functionality under before System load, System unloads, Before Constructor, after constructor then we can use hooks.
+
+
+Codeigniter Provide Multiple hooks point to define the application functionality.
+
+
+CI provides multiple hooks point to write functionality.
+...................................................................
+
+The following is a list of available hook points.
+pre_system:-  call before application load
+pre_controller:-  call before controller load
+post_controller_constructor:-  call with constructor initialization
+post_controller Called immediately after your controller is fully executed.
+display_override Overrides the _display() method,
+cache_override Enables you to call your own method instead of the _display_cache() method in the Output Library.
+post_system Called after the final rendered page is sent to the browser, at the end of system execution after the finalized data is sent to the browser.
+Step to create Hooks :-
+..........................................
+
+1)enable hooks in autoload.php
+
+$Enable_hooks=True
+
+2)  Create hooks filer under application/hooks folder
+
+3 ) define hooks point under config/hooks.php, define filename, class name and method name
+       or filename, methodname
+
+
+
+
+
+Code for hooks:-
+...............................................................
+
+application/hook.php
+.......................
+
+create info.php
+<?php
+function myinfo()
+{
+ echo "<script>alert('provide 25% discount to girls only')</script>";
+}
+
+?>
+
+call hooks in application/hooks.php
+
+
+$hook['pre_system'] = array(
+     
+        'function' => 'myinfo',
+        'filename' => 'info.php',
+        'filepath' => 'hooks'
+       );
