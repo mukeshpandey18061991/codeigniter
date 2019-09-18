@@ -1,0 +1,176 @@
+AJAX IMPLEMENTATION IN CODEIGNITER:-
+......................................
+
+
+
+
+
+
+Ajax means Asynchronous Javascript and XML, it is used to partially update the content of web page excluding complete web form.
+
+Ajax improves performance of web application and provide dynamic programming approach without reloading and submit the data.
+
+
+for example if we create a registration form and we want to check that email already exists when user switch to next text field then we can create ajax code to check email id.
+
+
+when we select country then state list and when we select the state then city list will be populated by AJAX.
+
+
+when we search from facebook or google search box then data will be populated when we press any key that will be managed by Ajax.
+
+
+
+
+Role of JavaScript or Jquery:-
+..............................
+
+It is used to handle the event in Ajax Process, means if we select dropdown list and display data into another dropdown list will be managed by AJAX.
+
+
+Role of XML:-
+XML means Extensible markup language which is used to transfer data from client machine(Browser) to server machine (Apache Server).
+
+XMLHttpRequest:-  this class is used to send data from browser to web server.
+
+XMLHttpResponse:-  It is used to get web server response using XML form.
+
+
+AJAX EXAMPLE IN CI?
+.....................................................................................................
+Create Controller:-
+!!!!!!!!!!!!!!!!!!!!!!!!
+<?php
+class AjaxExample extends CI_Controller
+{
+   function __construct()
+   {
+    parent::__construct();
+    $this->load->model('stumodel');
+   }
+   function index()
+   {
+    $this->load->view('ajaxview');
+   }
+
+   function searchdata($id)
+   {
+    
+      $r = $this->stumodel->ajaxsearch($id);
+      if(count($r)>0)
+      $data['res']=$this->stumodel->ajaxsearch($id);
+      else
+       $data['res']="no record found";
+      $this->load->view('searchview',$data);
+   }
+
+}
+
+
+
+
+
+
+
+
+?>
+
+
+..................................
+View File:-
+!!!!!!!!!!!!!!!!
+
+ajaxview.php
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+ <script type="text/javascript">
+    function showdata(a)
+    {
+     if(a!='')
+     {
+      xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange=function()
+      {
+       document.getElementById("res").innerHTML=xmlhttp.responseText;
+      }
+      xmlhttp.open("POST","<?php echo site_url(); ?>/ajaxexample/searchdata/"+a,true);
+      xmlhttp.send();
+     }
+           
+    }
+
+
+ </script>
+</head>
+<body>
+<center>
+
+<h1>Search Content</h1>
+<input type="text" name="txt" onkeyup="showdata(this.value)"  />
+
+<div id="res"></div>
+</center>
+
+</body>
+</html>
+...........................................................
+searchview.php
+........................................................................
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+</head>
+<body>
+
+ <?php
+
+   //print_r($res);
+   if(is_array($res))
+   {
+   foreach ($res as $x) {
+    foreach ($x as $y)
+    {
+     echo $y," ";
+    }
+    echo "<hr>";
+   }
+
+   }
+   else
+    echo $res;
+ ?>
+</body>
+</html>
+
+.............................................................................................................
+Model:-
+
+<?php
+class Stumodel extends CI_Model
+{
+    function __construct()
+    {
+     parent::__construct();
+     $this->load->database();
+    }
+
+ 
+    function ajaxsearch($id)
+    {
+        $res = $this->db->select('*')->from('student')->where("name LIKE '$id%'")->get()->result_array();
+        return $res;
+    }
+
+}
+
+
+
+
+
+?>
+
+
+
