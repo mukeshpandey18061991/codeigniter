@@ -1,0 +1,25 @@
+COOKIE CONCEPT IN CI
+What is Cookie?
+
+A cookie is used to store information under web browser, every browser contains separate directory to store data under the cookie. The cookie will be private. The session will be stored data under the cookie folder by default.
+
+
+Step for Cookie:-
+
+1 Load cookie helper in autoload.php
+
+
+2  first set cookie
+
+   $this->input->set_cookie('key','value',time);
+    $this->input->set_cookie('cuid',$user,3600);
+    $this->input->set_cookie('cpwd',$pass,3600);
+
+3   get cookie data
+
+    $data= array('a'=>$this->input->cookie('cuid'),'b'=>$this->input->cookie('cpwd'));
+       
+    echo $this->input->cookie('key')
+
+4 delete cookie data
+     delete_cookie('key');
